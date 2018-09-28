@@ -21,7 +21,7 @@ public class ViewController {
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model) {
 		return "login";
 	}
 

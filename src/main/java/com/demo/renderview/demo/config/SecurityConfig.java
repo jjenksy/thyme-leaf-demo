@@ -1,5 +1,6 @@
 package com.demo.renderview.demo.config;
 
+import com.demo.renderview.demo.config.handlers.AuthenticationFailureListener;
 import com.demo.renderview.demo.config.handlers.LoggingAccessDeniedHandler;
 import com.demo.renderview.demo.repository.entity.User;
 import com.demo.renderview.demo.service.UserAccountService;
@@ -22,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserAccountService userAccountService;
 
-
+	@Autowired
+	private AuthenticationFailureListener authenticationFailureListener;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -39,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.formLogin()
 				.loginPage("/login")
+				.failureHandler(authenticationFailureListener)
 				.permitAll()
 				.and()
 				.logout()
