@@ -54,7 +54,7 @@ public class DemoApplication {
 				//rolesSet.add(roles);
 				admin.setPassword("admin");
 				admin.setUsername("admin");
-				admin.setEnabled(false);
+				admin.setEnabled(true);
 				admin.setAuthorities(Arrays.asList(adminRole,userRole));
 
 				userAccountRepo.save(admin);
