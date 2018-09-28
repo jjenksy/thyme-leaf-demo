@@ -1,15 +1,19 @@
 package com.demo.renderview.demo;
 
+import com.demo.renderview.demo.events.OnRegistrationCompleteEvent;
 import com.demo.renderview.demo.models.Roles;
 
 import com.demo.renderview.demo.repository.AuthorityRepository;
 import com.demo.renderview.demo.repository.UserRepository;
 import com.demo.renderview.demo.repository.entity.Authority;
 import com.demo.renderview.demo.repository.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
@@ -30,7 +34,7 @@ public class DemoApplication {
 	 * @return
 	 */
 	@Bean
-	CommandLineRunner init(final UserRepository userAccountRepo, final AuthorityRepository authorityRepository) {
+	CommandLineRunner init(final UserRepository userAccountRepo, final AuthorityRepository authorityRepository, final ApplicationEventPublisher eventPublisher) {
 
 		return new CommandLineRunner() {
 
@@ -60,6 +64,12 @@ public class DemoApplication {
 
 				userAccountRepo.save(admin);
 
+				try {
+					eventPublisher.publishEvent(new OnRegistrationCompleteEvent(admin));
+				} catch (Exception e){
+					System.out.println(e.getMessage());
+				}
+
 
 
 			}
@@ -78,3 +88,6 @@ public class DemoApplication {
 	}
 
 }
+
+
+

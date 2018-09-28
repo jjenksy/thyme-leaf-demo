@@ -1,6 +1,5 @@
 package com.demo.renderview.demo.config.handlers;
 
-import com.demo.renderview.demo.config.exception.FirstLoginException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
@@ -24,6 +23,7 @@ public class AuthenticationFailureListener implements AuthenticationFailureHandl
 
 		String errorMessage = "message.badCredentials";
 
+
 //		response.sendRedirect(request.getContextPath() + "?error=true");
 		if (exception.getMessage().equalsIgnoreCase("User is disabled")) {
 			errorMessage = "auth.message.disabled";
@@ -37,8 +37,8 @@ public class AuthenticationFailureListener implements AuthenticationFailureHandl
 		}
 
 		if(exception instanceof DisabledException){
-			response.sendRedirect(request.getRequestURI()+"?error=true&message=First+Login+Baby");
-			log.error("First login!!");
+			response.sendRedirect("/reset_password?error=true&message=First+Login+Baby");
+			log.error("First login!! {}", request.getRequestURI());
 		}
 
 

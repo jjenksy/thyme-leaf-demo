@@ -25,6 +25,10 @@ public class ViewController {
 		return "login";
 	}
 
+	@GetMapping("/reset_password")
+	public String resetPassword(){
+		return "resetPassword";
+	}
 	@GetMapping("/access-denied")
 	public String accessDenied() {
 		return "/error/access-denied";
