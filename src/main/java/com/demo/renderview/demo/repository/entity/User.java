@@ -36,6 +36,8 @@ public class User implements UserDetails, Serializable {
 	@Transient
 	private Set<String> roles;
 
+	private boolean firstLogin = true;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "users_authorities",

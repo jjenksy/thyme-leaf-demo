@@ -1,6 +1,8 @@
 package com.demo.renderview.demo.config.handlers;
 
+import com.demo.renderview.demo.config.exception.FirstLoginException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -33,8 +35,13 @@ public class AuthenticationFailureListener implements AuthenticationFailureHandl
 			errorMessage = "auth.message.blocked";
 //			response.sendRedirect(request.getContextPath() + "?error=true");
 		}
-		log.error(errorMessage);
-		response.sendRedirect(request.getRequestURI()+"?error=true&message=hello");
+
+		if(exception instanceof DisabledException){
+			response.sendRedirect(request.getRequestURI()+"?error=true&message=First+Login+Baby");
+			log.error("First login!!");
+		}
+
+
 		request.getSession().setAttribute(WebAttributes.AUTHENTICATION_EXCEPTION, errorMessage);
 	}
 

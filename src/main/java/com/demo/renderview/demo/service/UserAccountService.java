@@ -38,7 +38,6 @@ public class UserAccountService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> optionalUser = this.userRepository.findByUsername(username);
 		User user = optionalUser.orElseGet(User::new);
-
 		log.error("User {}", user);
 		return user;
 

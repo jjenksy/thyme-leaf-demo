@@ -48,13 +48,14 @@ public class DemoApplication {
 				user.setPassword("user");
 				user.setUsername("user");
 				user.setEnabled(true);
+				user.setFirstLogin(false);
 				user.setAuthorities(Arrays.asList(userRole));
 
 				userAccountRepo.save(user);
 				//rolesSet.add(roles);
 				admin.setPassword("admin");
 				admin.setUsername("admin");
-				admin.setEnabled(true);
+				admin.setEnabled(false);
 				admin.setAuthorities(Arrays.asList(adminRole,userRole));
 
 				userAccountRepo.save(admin);
